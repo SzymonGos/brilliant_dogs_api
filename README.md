@@ -10,7 +10,7 @@ Functions currently under development will be marked as `[x]`, future planned fu
 - [x] choose a breed from the dropdown menu.
 - [x] display fetched image
 - [x] comment section under fetched images
-- [] add serverless functionality with Netlify to save comments 
+- [ ] add serverless functionality with Netlify to save comments 
  
 ## Getting Started with Create React App
 
