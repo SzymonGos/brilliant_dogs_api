@@ -1,24 +1,67 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import ShowDogs from "./components/ShowDogs";
+
+
+const apiURL = 'https://dog.ceo/api';
 
 function App() {
+
+  const [imgUrl, setImgUrl] = useState('');
+  const [breedList, setBreedList] = useState(['']);
+  const [selected, setSelected] = useState('');
+  const [isLoading, setIsLoading] = useState(true)
+
+  const getBreedList = () => {
+    axios
+      .get(`${apiURL}/breeds/list`)
+      .then((resp) => {
+        const data = resp.data.message;
+        setBreedList(data);
+        setIsLoading(false)
+      })
+      .catch(error => console.log('Error When Fetching List'));
+  }
+
+  const getBreedImage = () => {
+    setIsLoading(true)
+      axios
+        .get(`${apiURL}/breed/${selected}/images/random`)
+        .then((resp) => {
+          const data = resp.data.message;
+          setImgUrl(data)
+          setIsLoading(false)
+        })
+        .catch(error => console.log('Error When Fetching Image'));
+  }
+
+  useEffect(() => {
+    getBreedList();
+  }, [])
+
+
+  if (isLoading) {
+    return (
+      <main>
+        Loading...
+      </main>
+    )
+  }
+
+  const handleSelect = (e) => {
+    setSelected(e.target.value)
+  }
+  console.log(selected);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <ShowDogs
+        breedList={breedList}
+        selected={selected}
+        handleSelect={handleSelect}
+        getBreedImage={getBreedImage}
+        imgUrl={imgUrl}
+      />
+    </main>
   );
 }
 
