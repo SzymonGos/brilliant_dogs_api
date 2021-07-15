@@ -1,6 +1,7 @@
 import React from 'react';
 import { Box, TextField, Typography, makeStyles, Button } from '@material-ui/core';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import { useState } from 'react';
 
 
 const useStyles = makeStyles(() => {
@@ -12,12 +13,37 @@ const useStyles = makeStyles(() => {
         title: {
             marginBottom: '1rem'
         },
+        button: {
+            alignSelf: 'flex-end'
+        }
     }
 })
 
 function Comments({ selected }) {
 
     const classes = useStyles();
+    const [name, setName] = useState('');
+    const [message, setMessage] = useState('');
+    const [nameError, setNameError] = useState(false);
+    const [messageError, setMessageError] = useState(false);
+
+    const data = {};
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setNameError(false);
+        setMessageError(false);
+
+        if(name === ''){
+            setNameError(true)
+        }
+        if(message === ''){
+            setMessageError(true)
+        }
+        
+        if(name && message){
+            console.log(name + ' ' +message);
+        } 
+    }
 
     return (
         <section>
@@ -37,17 +63,21 @@ function Comments({ selected }) {
 
                 {/* Create a Comment */}
                 <form
+                    onSubmit={handleSubmit}
                     noValidate
                     autoComplete='off'
                 >
                     <TextField
+                        onChange={(e) => setName(e.target.value)}
                         className={classes.field}
-                        label='Title'
+                        label='Name'
                         variant='outlined'
                         fullWidth
                         required
+                        error={nameError}
                     />
                     <TextField
+                        onChange={(e) => setMessage(e.target.value)}
                         className={classes.field}
                         label='Message'
                         variant='outlined'
@@ -55,10 +85,12 @@ function Comments({ selected }) {
                         rows={4}
                         fullWidth
                         required
+                        error={messageError}
                     />
                     <Button
                         color='primary'
                         variant="contained"
+                        type='submit'                      
                     >
                         send <KeyboardArrowRightIcon />
                     </Button>
