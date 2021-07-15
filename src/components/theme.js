@@ -13,8 +13,8 @@ const theme = createTheme({
         fontFamily: 'Open Sans',
         fontWeightLight: 300,
         fontWeightRegular: 400,
-        fontWeightBold: 600
-    }
+        fontWeightBold: 600,
+    },
 })
 
 export default theme;
