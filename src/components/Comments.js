@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useState }  from 'react';
 import { Box, TextField, Typography, makeStyles, Button } from '@material-ui/core';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
-import { useState } from 'react';
-
+import { v4 as uuidv4 } from 'uuid';
 
 const useStyles = makeStyles(() => {
     return {
@@ -26,23 +25,32 @@ function Comments({ selected }) {
     const [message, setMessage] = useState('');
     const [nameError, setNameError] = useState(false);
     const [messageError, setMessageError] = useState(false);
+    const [comments, setComments] = useState([]);
 
-    const data = {};
+    console.log(comments);
+
     const handleSubmit = (e) => {
         e.preventDefault();
         setNameError(false);
         setMessageError(false);
 
-        if(name === ''){
+        if (name === '') {
             setNameError(true)
         }
-        if(message === ''){
+        if (message === '') {
             setMessageError(true)
         }
-        
-        if(name && message){
-            console.log(name + ' ' +message);
-        } 
+
+        if (name && message) {
+            setComments((comments) => [
+                ...comments, {
+                    id : uuidv4().substring(0, 10),
+                    breed: selected,
+                    name: name,
+                    message: message
+                }
+            ])
+        }
     }
 
     return (
@@ -90,13 +98,25 @@ function Comments({ selected }) {
                     <Button
                         color='primary'
                         variant="contained"
-                        type='submit'                      
+                        type='submit'
                     >
                         send <KeyboardArrowRightIcon />
                     </Button>
                 </form>
             </Box>
-            {/* Comments */}
+            {/* Comments / test */}
+            <div>
+                {comments.map((comment) => {
+                    const { id, breed, name, message } = comment
+                    return (
+                        <div key={id}>
+                            <h3>{breed}</h3>
+                            <p>{name}</p>
+                            <p>{message}</p>
+                        </div>
+                    )
+                })}
+            </div>
         </section>
     )
 }
