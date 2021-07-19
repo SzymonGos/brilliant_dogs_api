@@ -1,5 +1,5 @@
-import React, { useState }  from 'react';
-import { Box, TextField, Typography, makeStyles, Button } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Box, TextField, Typography, makeStyles, Button, Card, CardContent } from '@material-ui/core';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -10,11 +10,27 @@ const useStyles = makeStyles(() => {
             display: 'block'
         },
         title: {
-            marginBottom: '1rem'
+            marginBottom: '1.5rem'
         },
         button: {
             alignSelf: 'flex-end'
-        }
+        },
+        responses: {
+            marginTop: '3rem',
+            fontWeight: 'bold'
+        },
+        messageBox: {
+            margin: '2rem 0'
+        },
+        messageCard: {
+            marginBottom: '2rem',
+            boxShadow: 'rgb(0 0 0 / 12%) 0px 2px 8px'
+        },
+        author: {
+            textAlign: 'right',
+            fontStyle: 'italic'
+        },
+
     }
 })
 
@@ -26,8 +42,6 @@ function Comments({ selected }) {
     const [nameError, setNameError] = useState(false);
     const [messageError, setMessageError] = useState(false);
     const [comments, setComments] = useState([]);
-
-    console.log(comments);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -41,15 +55,17 @@ function Comments({ selected }) {
             setMessageError(true)
         }
 
-        if (name && message) {
+        if (selected && (name && message)) {
             setComments((comments) => [
                 ...comments, {
-                    id : uuidv4().substring(0, 10),
+                    id: uuidv4().substring(0, 10),
                     breed: selected,
                     name: name,
                     message: message
                 }
-            ])
+            ]);
+            setName('');
+            setMessage('');
         }
     }
 
@@ -75,6 +91,16 @@ function Comments({ selected }) {
                     noValidate
                     autoComplete='off'
                 >
+                    <Box>{(selected === '')
+                        ? <Typography
+                            variant='body2'
+                            color='secondary'
+                        >
+                            Please choose a breed
+                        </Typography>
+                        : null}
+                    </Box>
+
                     <TextField
                         onChange={(e) => setName(e.target.value)}
                         className={classes.field}
@@ -82,6 +108,7 @@ function Comments({ selected }) {
                         variant='outlined'
                         fullWidth
                         required
+                        value={name}
                         error={nameError}
                     />
                     <TextField
@@ -93,6 +120,7 @@ function Comments({ selected }) {
                         rows={4}
                         fullWidth
                         required
+                        value={message}
                         error={messageError}
                     />
                     <Button
@@ -104,21 +132,41 @@ function Comments({ selected }) {
                     </Button>
                 </form>
             </Box>
-            {/* Comments / test */}
-            <div>
+            {/* Comments section */}
+            <Typography
+                className={classes.responses}
+                variant='h6'
+            >
+                Responses({comments.length})
+            </Typography>
+            <Box
+                className={classes.messageBox}
+            >
                 {comments.map((comment) => {
                     const { id, breed, name, message } = comment
                     return (
-                        <div key={id}>
-                            <h3>{breed}</h3>
-                            <p>{name}</p>
-                            <p>{message}</p>
-                        </div>
+                        <Card key={id} className={classes.messageCard}>
+                            <CardContent>
+                                <Typography
+                                    variant='h6'
+                                    className={classes.title}
+                                >
+                                    <Box fontWeight='fontWeightBold'> Breed: {breed}</Box>
+                                </Typography>
+                                <Typography
+                                    gutterBottom
+                                >{message}</Typography>
+                                <Typography
+                                    className={classes.author}
+                                > {name}</Typography>
+                            </CardContent>
+                        </Card>
                     )
-                })}
-            </div>
+                }).reverse()
+                }
+            </Box>
         </section>
     )
 }
 
-export default Comments
+export default Comments;
