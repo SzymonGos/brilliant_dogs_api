@@ -37,6 +37,7 @@ const useStyles = makeStyles(() => {
 function Comments({ selected }) {
 
     const classes = useStyles();
+    const [isSelected, setIsSelected] = useState(false);
     const [name, setName] = useState('');
     const [message, setMessage] = useState('');
     const [nameError, setNameError] = useState(false);
@@ -47,6 +48,10 @@ function Comments({ selected }) {
         e.preventDefault();
         setNameError(false);
         setMessageError(false);
+
+        if(selected === ''){
+            setIsSelected(true)
+        }
 
         if (name === '') {
             setNameError(true)
@@ -66,6 +71,7 @@ function Comments({ selected }) {
             ]);
             setName('');
             setMessage('');
+            setIsSelected(false);
         }
     }
 
@@ -91,7 +97,7 @@ function Comments({ selected }) {
                     noValidate
                     autoComplete='off'
                 >
-                    <Box>{(selected === '')
+                    <Box>{(isSelected)
                         ? <Typography
                             variant='body2'
                             color='secondary'

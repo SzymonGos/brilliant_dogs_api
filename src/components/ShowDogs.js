@@ -26,13 +26,14 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('md')]: {
             maxWidth: '700px'
         },
+        animation: '$fadeIn 2s',
     },
-   
 }));
 
-function ShowDogs({ breedList, selected, handleSelect, getBreedImage, imgUrl }) {
+function ShowDogs({ breedList, selected, isLoading, handleSelect, getBreedImage, imgUrl }) {
 
     const classes = useStyles();
+
     return (
         <section>
             <Box

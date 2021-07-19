@@ -1,6 +1,6 @@
 # Introduction 
 
-The Brilliant Dog API displays a gallery of dog images fetched from [Dog API](https://dog.ceo/dog-api/). The user will choose a dog image from the dropdown menu with the possibility to leave a comment under the image. The outcome of this project is to improve skills regarding connecting to online API. For the styling, Material-UI was selected as CSS Framework.  
+The Brilliant Dog API displays a gallery of dog images fetched from [Dog API](https://dog.ceo/dog-api/). The user will choose a dog image from the dropdown menu with the possibility to leave a comment under the image. The outcome of this project is to improve skills regarding connecting to online API. The CSS framework Material-UI was chosen for styling.
 
 ## Tasks List
 
@@ -28,7 +28,7 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm build`
+### `npm run build`
 
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { makeStyles, AppBar, Toolbar, Typography, Container, Paper } from "@material-ui/core";
+import { makeStyles, AppBar, Toolbar, Typography, Container, Paper} from "@material-ui/core";
 import { format } from 'date-fns';
 import ShowDogs from "./components/ShowDogs";
 import Comments from "./components/Comments";
@@ -69,15 +69,6 @@ function App() {
     getBreedList();
   }, [])
 
-
-  // if (isLoading) {
-  //   return (
-  //       <div>
-  //       Loading...
-  //       </div>
-  //   )
-  // }
-
   const handleSelect = (e) => {
     setSelected(e.target.value)
   }
@@ -108,6 +99,7 @@ function App() {
           <ShowDogs
             imgUrl={imgUrl}
             selected={selected}
+            isLoading={isLoading}
             breedList={breedList}
             handleSelect={handleSelect}
             getBreedImage={getBreedImage}
