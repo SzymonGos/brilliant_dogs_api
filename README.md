@@ -1,6 +1,6 @@
 # Introduction 
 
-The Brilliant Dog API displays a gallery of dog images fetched from [Dog API](https://dog.ceo/dog-api/). The user will choose a dog image from the dropdown menu with the possibility to leave a comment under the image. The outcome of this project is to improve skills regarding connecting to online API.
+The Brilliant Dog API displays a gallery of dog images fetched from [Dog API](https://dog.ceo/dog-api/). The user will choose a dog image from the dropdown menu with the possibility to leave a comment under the image. The outcome of this project is to improve skills regarding connecting to online API. For the styling, Material-UI was selected as CSS Framework.  
 
 ## Tasks List
 
@@ -9,7 +9,7 @@ Functions currently under development will be marked as `[x]`, future planned fu
 - [x] fetch data from the Dog API.
 - [x] choose a breed from the dropdown menu.
 - [x] display fetched image
-- [x] comment section under fetched images
+- [x] comment section under fetched images (comments are deleted when the application is reloaded)
 - [ ] add serverless functionality with Netlify to save comments 
  
 ## Getting Started with Create React App
