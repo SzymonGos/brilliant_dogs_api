@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => {
   return {
 
     root: {
-      margin: '1rem 0',
+      margin: '1rem auto',
       width: '100%',
       minHeight: '100vh'
     },
